@@ -34,7 +34,7 @@ public class Base {
         switch (message) {
             case SealedClass1 sealedClass1 -> System.out.println("Sealed class 1");
             case SealedClass2 sealedClass2 -> System.out.println("Sealed class 2");
-            case default -> System.out.println("default");
+//            case default -> System.out.println("default");
         }
     }
 }

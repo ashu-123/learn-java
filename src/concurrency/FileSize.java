@@ -41,7 +41,7 @@ public class FileSize {
 
     public static void main(String[] args) {
         long start = System.nanoTime();
-        long total = forkJoinPool.invoke(new FileSizeFinder(new File("C:\\Users\\ashutosh\\IdeaProjects")));
+        long total = forkJoinPool.invoke(new FileSizeFinder(new File("C:\\Users\\Ashutosh Mishra\\Downloads\\ashu\\ashu\\IdeaProjects")));
         long end = System.nanoTime();
         System.out.println("Total size:" + total);
         System.out.println("Total time taken to compute file size concurrently:" + (end-start)/1.0e9);
