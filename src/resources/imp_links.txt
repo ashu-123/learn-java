@@ -1,0 +1,2 @@
+1. Pre processing an array -> https://www.geeksforgeeks.org/find-element-array-sum-left-array-equal-sum-right-array/
+2. 50 days 50 css projects -> https://github.com/bradtraversy/50projects50days?tab=readme-ov-file
