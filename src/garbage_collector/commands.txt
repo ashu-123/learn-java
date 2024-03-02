@@ -1,0 +1,4 @@
+1. To get all the addresses allocated by the JVM in a csv file
+ java -cp out/production/learn-java-18 garbage_collector.Sawtooth > out.csv
+
+ 2.
