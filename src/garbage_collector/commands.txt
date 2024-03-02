@@ -1,0 +1,13 @@
+1. To get all the addresses allocated by the JVM in a csv file
+ java -cp out/production/learn-java-18 garbage_collector.Sawtooth > out.csv
+
+2. To switch to a different Garbage Collector
+ Use Java options:-  -XX:+UseParallelGC
+
+3. To find the JVM id
+ jps
+
+4. Jstat commands
+ jstat -gc <vmid> <interval> <count>
+ jstat -gcutil <vmid> <interval> <count>
+ jstat -gccapacity <vmid> <interval> <count>
