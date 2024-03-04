@@ -6,11 +6,11 @@ import java.util.WeakHashMap;
 public class WeakReferencing {
 
     public static void main(String[] args) {
-        WeakHashMap<People, PersonMetaData> weakHashMap = new WeakHashMap<People, PersonMetaData>();
-        People kevin = new People();
-        weakHashMap.put(kevin, new PersonMetaData());
+        WeakHashMap<Student, StudentMetaData> weakHashMap = new WeakHashMap<Student, StudentMetaData>();
+        Student kevin = new Student();
+        weakHashMap.put(kevin, new StudentMetaData());
 
-        PersonMetaData p = weakHashMap.get(kevin);
+        StudentMetaData p = weakHashMap.get(kevin);
 
         System.out.println(p);
 
@@ -25,20 +25,20 @@ public class WeakReferencing {
     }
 }
 
-final class Person {
+final class Student {
 
 }
 
-class PersonMetaData {
+class StudentMetaData {
     Date date;
 
-    PersonMetaData() {
+    StudentMetaData() {
         date = new Date();
     }
 
     @Override
     public String toString() {
-        return "PersonMetaData {" +
+        return "StudentMetaData {" +
                 "date=" + date +
                 '}';
     }
