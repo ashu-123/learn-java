@@ -36,7 +36,11 @@ public class RunningSeveralTasks {
 
         List<CompletableFuture<Weather>> weatherCFs = new ArrayList<>();
         for (Supplier<Weather> weatherTask : weatherTasks) {
-            CompletableFuture<Weather> weatherCompletableFuture = CompletableFuture.supplyAsync(weatherTask, weatherExecutor);
+            CompletableFuture<Weather> weatherCompletableFuture = CompletableFuture.supplyAsync(weatherTask, weatherExecutor)
+                    .exceptionally(exception -> {
+                        System.out.println("Exception = " + exception);
+                        return new Weather("Default", "Default");
+                    });
             weatherCFs.add(weatherCompletableFuture);
         }
 
@@ -45,7 +49,13 @@ public class RunningSeveralTasks {
 
         List<CompletableFuture<Quotation>> quotationCFs = new ArrayList<>();
         for (Supplier<Quotation> quotationTask : quotationTasks) {
-            CompletableFuture<Quotation> quotationCompletableFuture = CompletableFuture.supplyAsync(quotationTask, quotationExecutor);
+            CompletableFuture<Quotation> quotationCompletableFuture = CompletableFuture.supplyAsync(quotationTask, quotationExecutor)
+                    .handle((quotation, exception) -> {
+                        if (exception != null) {
+                            System.out.println("Exception = " + exception);
+                            return new Quotation("default", 1_000_000);
+                        } else return quotation;
+                    });
             quotationCFs.add(quotationCompletableFuture);
         }
 
