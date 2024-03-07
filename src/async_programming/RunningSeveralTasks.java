@@ -5,6 +5,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.function.Supplier;
 
 public class RunningSeveralTasks {
@@ -24,12 +27,16 @@ public class RunningSeveralTasks {
 
     public static void run() {
 
+        ExecutorService quotationExecutor = Executors.newFixedThreadPool(4);
+        ExecutorService weatherExecutor = Executors.newFixedThreadPool(4);
+        ExecutorService minExecutor = Executors.newFixedThreadPool(1);
+
         var weatherTasks = getAllWeatherTasks();
         var quotationTasks = getAllQuotationsTasks();
 
         List<CompletableFuture<Weather>> weatherCFs = new ArrayList<>();
         for (Supplier<Weather> weatherTask : weatherTasks) {
-            CompletableFuture<Weather> weatherCompletableFuture = CompletableFuture.supplyAsync(weatherTask);
+            CompletableFuture<Weather> weatherCompletableFuture = CompletableFuture.supplyAsync(weatherTask, weatherExecutor);
             weatherCFs.add(weatherCompletableFuture);
         }
 
@@ -38,17 +45,21 @@ public class RunningSeveralTasks {
 
         List<CompletableFuture<Quotation>> quotationCFs = new ArrayList<>();
         for (Supplier<Quotation> quotationTask : quotationTasks) {
-            CompletableFuture<Quotation> quotationCompletableFuture = CompletableFuture.supplyAsync(quotationTask);
+            CompletableFuture<Quotation> quotationCompletableFuture = CompletableFuture.supplyAsync(quotationTask, quotationExecutor);
             quotationCFs.add(quotationCompletableFuture);
         }
 
         CompletableFuture<Void> allOfQuotation = CompletableFuture.allOf(quotationCFs.toArray(CompletableFuture[]::new));
 
-        CompletableFuture<Quotation> bestQuotationCf = allOfQuotation.thenApply(
-                v -> quotationCFs.stream()
-                        .map(CompletableFuture::join)
-                        .min(Comparator.comparing(Quotation::amount))
-                        .orElseThrow()
+        CompletableFuture<Quotation> bestQuotationCf = allOfQuotation.thenApplyAsync(
+                v -> {
+                    System.out.println("AllOf then apply " + Thread.currentThread());
+                    return quotationCFs.stream()
+                            .map(CompletableFuture::join)
+                            .min(Comparator.comparing(Quotation::amount))
+                            .orElseThrow();
+                },
+                minExecutor
         );
 //        DO NOT DO THIS
 //        TravelPage travelPage = new TravelPage(bestQuotationCf.join(), anyWeather.join());
