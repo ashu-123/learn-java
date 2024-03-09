@@ -12,8 +12,11 @@ public class ActivateSecurityManager {
         String version = System.getProperty("java.version");
         System.out.println(version);
 
-        try (FileWriter writer = new FileWriter("c:/temp/out.txt")){
-            writer.write("Hello, World");
-        }
+        String home = System.getProperty("user.home");
+        System.out.println(home);
+
+//        try (FileWriter writer = new FileWriter("c:/temp/out.txt")){
+//            writer.write("Hello, World");
+//        }
     }
 }
