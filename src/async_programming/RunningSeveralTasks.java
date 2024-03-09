@@ -7,7 +7,6 @@ import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
 import java.util.function.Supplier;
 
 public class RunningSeveralTasks {
@@ -45,7 +44,10 @@ public class RunningSeveralTasks {
         }
 
         CompletableFuture<Weather> anyWeather = CompletableFuture.anyOf(weatherCFs.toArray(CompletableFuture[]::new))
-                .thenApply(o -> (Weather) o);
+                .thenApply(o -> (Weather) o)
+                .whenComplete((weather, exception) -> {
+                    if (exception != null) System.out.println("Exception = " + exception);
+                });
 
         List<CompletableFuture<Quotation>> quotationCFs = new ArrayList<>();
         for (Supplier<Quotation> quotationTask : quotationTasks) {
@@ -78,7 +80,8 @@ public class RunningSeveralTasks {
         CompletableFuture<TravelPage> travelPageCompletableFuture = bestQuotationCf.thenCombine(anyWeather, TravelPage::new);
         travelPageCompletableFuture.thenAccept(System.out::println).join();
 
-        CompletableFuture<TravelPage> travelPageCompletableFuture1 = bestQuotationCf.thenCompose(quotation -> anyWeather.thenApply(weather -> new TravelPage(quotation, weather)));
+        CompletableFuture<TravelPage> travelPageCompletableFuture1 =
+                bestQuotationCf.thenCompose(quotation -> anyWeather.thenApply(weather -> new TravelPage(quotation, weather)));
         travelPageCompletableFuture1.thenAccept(System.out::println).join();
     }
 
