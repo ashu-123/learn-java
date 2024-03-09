@@ -1,4 +1,6 @@
 grant {
         permission java.lang.RuntimePermission "getProtectionDomain";
         permission java.security.SecurityPermission "getPolicy";
+
+        permission com.pluralsight.WarpPermission "maxWarp", "9";
 };
