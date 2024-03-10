@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2024-03-10T09:48:57.822641900Z</date>
+  <millis>1710064137822</millis>
+  <nanos>641900</nanos>
+  <sequence>0</sequence>
+  <logger>logging.DemoLogging</logger>
+  <level>INFO</level>
+  <class>logging.DemoLogging</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Initiating main()</message>
+</record>
+</log>
