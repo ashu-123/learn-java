@@ -2,6 +2,7 @@ package logging;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;
+import java.util.logging.Filter;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
@@ -20,10 +21,17 @@ public class LoggingUsingSimpleFormatter {
         }
         fileHandler.setLevel(WARNING);
         fileHandler.setFormatter(new SimpleFormatter());
+        Filter filter = s -> !s.getSourceMethodName().equals("dontLog");
+        fileHandler.setFilter(filter);
         LOGGER.addHandler(fileHandler);
     }
 
     public static void main(String[] args) {
         LOGGER.log(WARNING, "main initiated()");
+        dontLog();
+    }
+
+    private static void dontLog() {
+        LOGGER.log(WARNING, "dontLog initiated()");
     }
 }
