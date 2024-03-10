@@ -5,7 +5,6 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 import static java.util.logging.Level.INFO;
-import static java.util.logging.Level.WARNING;
 
 public class DemoLogging {
 
