@@ -1,12 +1,16 @@
 package concurrent_patterns;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class PlayWithRunnablesAndExecutors {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Runnable runnableTask = () -> System.out.println("I am executing in thread " + Thread.currentThread().getName());
+
+        Callable<String> callableTask = () -> {
+            Thread.sleep(1000);
+            return "I am executing in thread " + Thread.currentThread().getName();
+        };
 
         for(int i=0;i<10;i++) {
             new Thread(runnableTask).start();
@@ -22,8 +26,13 @@ public class PlayWithRunnablesAndExecutors {
         catch (Exception exception) { }
 
         try (ExecutorService executorService = Executors.newFixedThreadPool(4)) {
-            for (int i=0;i<10;i++)  executorService.execute(runnableTask);
+            for (int i=0;i<10;i++) {
+                Future<String> future = executorService.submit(callableTask);
+                System.out.println("I get:- " + future.get(100, TimeUnit.MILLISECONDS));
+            }
         }
-        catch (Exception exception) { }
+        catch (Exception exception) {
+            System.out.println("got exception:- " + exception);
+        }
     }
 }
