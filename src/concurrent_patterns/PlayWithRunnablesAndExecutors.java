@@ -20,5 +20,10 @@ public class PlayWithRunnablesAndExecutors {
             for (int i=0;i<10;i++)  executorService.execute(runnableTask);
         }
         catch (Exception exception) { }
+
+        try (ExecutorService executorService = Executors.newFixedThreadPool(4)) {
+            for (int i=0;i<10;i++)  executorService.execute(runnableTask);
+        }
+        catch (Exception exception) { }
     }
 }
