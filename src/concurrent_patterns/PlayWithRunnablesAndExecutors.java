@@ -12,13 +12,13 @@ public class PlayWithRunnablesAndExecutors {
             new Thread(runnableTask).start();
         }
 
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        for (int i=0;i<10;i++)  executorService.execute(runnableTask);
+//        ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        for (int i=0;i<10;i++)  executorService.execute(runnableTask);
 
 
-//        try (ExecutorService executorService = Executors.newSingleThreadExecutor()) {
-//            for (int i=0;i<10;i++)  executorService.execute(runnableTask);
-//        }
-//        catch (Exception exception) { }
+        try (ExecutorService executorService = Executors.newSingleThreadExecutor()) {
+            for (int i=0;i<10;i++)  executorService.execute(runnableTask);
+        }
+        catch (Exception exception) { }
     }
 }
