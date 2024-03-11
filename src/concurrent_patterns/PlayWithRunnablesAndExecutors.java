@@ -8,8 +8,8 @@ public class PlayWithRunnablesAndExecutors {
         Runnable runnableTask = () -> System.out.println("I am executing in thread " + Thread.currentThread().getName());
 
         Callable<String> callableTask = () -> {
-            Thread.sleep(1000);
-            return "I am executing in thread " + Thread.currentThread().getName();
+            throw new IllegalStateException();
+//            return "I am executing in thread " + Thread.currentThread().getName();
         };
 
         for(int i=0;i<10;i++) {
