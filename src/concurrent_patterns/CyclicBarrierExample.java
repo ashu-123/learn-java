@@ -33,7 +33,7 @@ public class CyclicBarrierExample {
 
         ExecutorService executorService = Executors.newFixedThreadPool(4);
 
-        CyclicBarrier cyclicBarrier = new CyclicBarrier(4);
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(4, () -> System.out.println("Barrier opening"));
         List< Future<String>> futures = new ArrayList<>();
 
         try {
