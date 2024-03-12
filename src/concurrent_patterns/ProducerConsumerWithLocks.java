@@ -22,23 +22,24 @@ public class ProducerConsumerWithLocks {
         class Consumer implements Callable<String> {
 
             @Override
-            public String call() throws InterruptedException {
+            public String call() throws InterruptedException, TimeoutException {
                 int count = 0;
                 while (count++ < 50) {
                     try {
                         lock.lock();
                         while (buffer.isEmpty()) {
-                            isEmpty.await(); // park the consumer thread when no elements to consume from the buffer
+                            if (!isEmpty.await(10, TimeUnit.MILLISECONDS)) {// park the consumer thread when no elements to consume from the buffer {
+                                throw new TimeoutException("Consumer timed out");
+                            }
                         }
-
                         buffer.remove(buffer.size() - 1);
                         isFull.signalAll(); //signal the producer when an element is removed from the buffer, to produce elements in it
                     } finally {
                         lock.unlock();
                     }
-
                 }
                 return "Consumed " + (count - 1);
+
             }
         }
 
@@ -50,13 +51,13 @@ public class ProducerConsumerWithLocks {
                 while (count++ < 50) {
                     try {
                         lock.lock();
-
+                        int i = 10/0;
                         while (buffer.size() == 50) {
                             isFull.await(); // park the executing thread when no space to add elements
                         }
 
                         buffer.add(1);
-                        isEmpty.signalAll(); //signal to the consumer to resume consuming elements from the buffer
+                        isEmpty.signalAll(); // signal to the consumer to resume consuming elements from the buffer
 
                     } finally {
                         lock.unlock();
@@ -96,7 +97,7 @@ public class ProducerConsumerWithLocks {
                         try {
                             System.out.println(future.get());
                         } catch (InterruptedException | ExecutionException e) {
-
+                            System.out.println("Exception: " + e.getMessage());
                         }
                     }
             );
