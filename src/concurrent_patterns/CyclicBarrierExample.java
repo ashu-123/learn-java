@@ -24,14 +24,14 @@ public class CyclicBarrierExample {
                 Thread.sleep((random.nextInt(20)*100 + 100));
                 System.out.println("I just arrived, waiting for the others...");
 
-                cyclicBarrier.await();
+                cyclicBarrier.await(5, TimeUnit.SECONDS);
 
                 System.out.println("Lets go to the cinema!!");
                 return "okay!";
             }
         }
 
-        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
 
         CyclicBarrier cyclicBarrier = new CyclicBarrier(4, () -> System.out.println("Barrier opening"));
         List< Future<String>> futures = new ArrayList<>();
