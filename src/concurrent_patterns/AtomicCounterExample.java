@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class AtomicCounterExample {
 
-    private static int counter = 0;
+    private static AtomicInteger counter = new AtomicInteger(0);
 
     public static void main(String[] args) {
 
@@ -17,7 +17,7 @@ public class AtomicCounterExample {
 
             @Override
             public void run() {
-                for (int i=0;i<1_000;i++) counter++;
+                for (int i=0;i<1_000;i++) counter.getAndIncrement();
             }
         }
 
@@ -25,7 +25,7 @@ public class AtomicCounterExample {
 
             @Override
             public void run() {
-                for (int i=0;i<1_000;i++) counter--;
+                for (int i=0;i<1_000;i++) counter.getAndDecrement();
             }
         }
 
