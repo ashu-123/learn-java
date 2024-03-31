@@ -1,6 +1,10 @@
 package io;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 public class ReaderInAction {
 
@@ -24,6 +28,13 @@ public class ReaderInAction {
             }
         }
         catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
+        Path path = Paths.get("src/resources/bat-weasels.txt");
+        try (Stream<String> lines = Files.newBufferedReader(path).lines();) {
+            lines.forEach(System.out::println);
+        } catch (IOException ioException) {
             ioException.printStackTrace();
         }
     }
