@@ -5,3 +5,6 @@ Hello World
 Hi Print WriterHello World
 Hi Print WriterHello World
 Hi Print Writer
+Hello World
+Hi Print Writer
+12 10 0x00f8

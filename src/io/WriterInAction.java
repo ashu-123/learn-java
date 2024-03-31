@@ -19,6 +19,7 @@ public class WriterInAction {
             bufferedWriter.newLine();
             PrintWriter printWriter = new PrintWriter(bufferedWriter);
             printWriter.println("Hi Print Writer");
+            printWriter.format("%d %o 0x%04x", 12, 8, 248);
         }
         catch (IOException ioException) {
             ioException.printStackTrace();
