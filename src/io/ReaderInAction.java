@@ -1,7 +1,6 @@
 package io;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class ReaderInAction {
 
@@ -15,5 +14,17 @@ public class ReaderInAction {
         System.out.println(nope.exists());
 //        nope.createNewFile();
 //        System.out.println(nope.exists());
+
+        try(Reader reader = new FileReader(file);) {
+            BufferedReader br = new BufferedReader(reader);
+            String line = br.readLine();
+            while(line!=null) {
+                System.out.println(line);
+                line = br.readLine();
+            }
+        }
+        catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
     }
 }
