@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Person implements Serializable {
 
-    String name;
+    transient String name;
 
     int age;
 
