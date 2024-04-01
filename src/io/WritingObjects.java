@@ -6,6 +6,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.List;
 
 public class WritingObjects {
 
@@ -17,11 +18,14 @@ public class WritingObjects {
 
         Person ashu = new Person("Ashutosh", 26);
         Person mamta = new Person("Mamta", 62);
+        var people = List.of(ashu, mamta);
+//        System.out.println(people.getClass().getTypeName());
 
         try (OutputStream outputStream = new FileOutputStream(file);
              ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
             objectOutputStream.writeObject(ashu);
             objectOutputStream.writeObject(mamta);
+            objectOutputStream.writeObject(people);
         } catch (IOException ioException) {
         }
 
