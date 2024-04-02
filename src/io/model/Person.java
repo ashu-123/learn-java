@@ -1,14 +1,13 @@
 package io.model;
 
-import java.io.DataOutputStream;
-import java.io.ObjectOutputStream;
+import java.io.ObjectStreamException;
 import java.io.Serializable;
 
-public class Person implements Serializable {
+public class Person implements Serializable{
 
-    transient String name;
+    String name;
 
-    transient int age;
+    int age;
 
     Person() { }
 
@@ -33,9 +32,13 @@ public class Person implements Serializable {
         this.age = age;
     }
 
-    private void writeObject(ObjectOutputStream objectOutputStream) throws Exception {
-        DataOutputStream dataOutputStream = new DataOutputStream(objectOutputStream);
-        dataOutputStream.writeUTF(name + "::" + age);
+//    private void writeObject(ObjectOutputStream objectOutputStream) throws Exception {
+//        DataOutputStream dataOutputStream = new DataOutputStream(objectOutputStream);
+//        dataOutputStream.writeUTF(name + "::" + age);
+//    }
+
+    private Object writeReplace() throws ObjectStreamException {
+        return new PersonProxy(name + ":-:" + age);
     }
 
     @Override

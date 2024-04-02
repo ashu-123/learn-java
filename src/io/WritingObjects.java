@@ -15,6 +15,7 @@ public class WritingObjects {
 
         String fileName = "src/resources/person.bin";
         String studentFileName = "src/resources/person-externalize.bin";
+        String proxyFileName = "src/resources/person-proxy.bin";
 
         File file = new File(fileName );
         File studentFile = new File(studentFileName );
@@ -45,6 +46,15 @@ public class WritingObjects {
              ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
             objectOutputStream.writeObject(student1);
             objectOutputStream.writeObject(student2);
+        } catch (IOException ioException) {
+        }
+
+        File fileProxy = new File(proxyFileName );
+
+        try (OutputStream outputStream = new FileOutputStream(fileProxy);
+             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
+            objectOutputStream.writeObject(ashu);
+            objectOutputStream.writeObject(mamta);
         } catch (IOException ioException) {
         }
     }
