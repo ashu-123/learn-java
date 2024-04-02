@@ -37,9 +37,9 @@ public class Person implements Serializable{
 //        dataOutputStream.writeUTF(name + "::" + age);
 //    }
 
-    private Object writeReplace() throws ObjectStreamException {
-        return new PersonProxy(name + ":-:" + age);
-    }
+//    private Object writeReplace() throws ObjectStreamException {
+//        return new PersonProxy(name + ":-:" + age);
+//    }
 
     @Override
     public String toString() {
