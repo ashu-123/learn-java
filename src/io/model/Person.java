@@ -1,7 +1,6 @@
 package io.model;
 
-import java.io.ObjectStreamException;
-import java.io.Serializable;
+import java.io.*;
 
 public class Person implements Serializable{
 
@@ -32,10 +31,18 @@ public class Person implements Serializable{
         this.age = age;
     }
 
-//    private void writeObject(ObjectOutputStream objectOutputStream) throws Exception {
-//        DataOutputStream dataOutputStream = new DataOutputStream(objectOutputStream);
-//        dataOutputStream.writeUTF(name + "::" + age);
-//    }
+    private void writeObject(ObjectOutputStream objectOutputStream) throws Exception {
+        DataOutputStream dataOutputStream = new DataOutputStream(objectOutputStream);
+        dataOutputStream.writeUTF(name + "::" + age);
+    }
+
+    private void readObject(ObjectInputStream objectInputStream) throws Exception {
+        DataInputStream dataInputStream = new DataInputStream(objectInputStream);
+        var data = dataInputStream.readUTF();
+        String[] fields = data.split("::");
+        this.name = fields[0];
+        this.age = Integer.parseInt(fields[1]);
+    }
 
 //    private Object writeReplace() throws ObjectStreamException {
 //        return new PersonProxy(name + ":-:" + age);
