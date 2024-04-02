@@ -21,5 +21,17 @@ public class ReadingObjects {
         catch (IOException | ClassNotFoundException ioException) {
             ioException.printStackTrace();
         }
+
+        String fileNameExternalize = "src/resources/person-externalize.bin";
+        File fileExternalize = new File(fileNameExternalize);
+
+        try(InputStream inputStream = new FileInputStream(fileExternalize);
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)){
+            System.out.println(objectInputStream.readObject());
+            System.out.println(objectInputStream.readObject());
+        }
+        catch (IOException | ClassNotFoundException ioException) {
+            ioException.printStackTrace();
+        }
     }
 }
