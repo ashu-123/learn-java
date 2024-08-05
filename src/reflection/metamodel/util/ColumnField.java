@@ -13,4 +13,6 @@ public class ColumnField {
     public String getName() { return this.field.getName(); }
 
     public Class<?> getType() { return  this.field.getType(); }
+
+    public Field getField() { return this.field; }
 }
