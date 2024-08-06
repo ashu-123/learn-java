@@ -62,4 +62,20 @@ public class MetaModel {
                 questionMarkElement +
                 ")";
     }
+
+    public String buildSelectRequest() {
+        var primaryKeyColumnName = getPrimaryKey().getName();
+        var columnNames = new java.util.ArrayList<>(getColumns().stream().map(ColumnField::getName).toList());
+        columnNames.add(0, primaryKeyColumnName);
+        String columnElement = String.join(",", columnNames);
+
+        return "select " +
+                columnElement +
+                " from " +
+                this.clzz.getSimpleName() +
+                " where " +
+                getPrimaryKey().getName() +
+                " = ?";
+
+    }
 }
