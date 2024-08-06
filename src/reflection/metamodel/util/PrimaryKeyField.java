@@ -1,5 +1,7 @@
 package reflection.metamodel.util;
 
+import reflection.metamodel.annotation.PrimaryKey;
+
 import java.lang.reflect.Field;
 
 public class PrimaryKeyField {
@@ -10,7 +12,7 @@ public class PrimaryKeyField {
         this.field = field;
     }
 
-    public String getName() { return this.field.getName(); }
+    public String getName() { return this.field.getAnnotation(PrimaryKey.class).name(); }
 
     public Class<?> getType() { return  this.field.getType(); }
 

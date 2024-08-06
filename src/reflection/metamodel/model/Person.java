@@ -5,13 +5,13 @@ import reflection.metamodel.annotation.PrimaryKey;
 
 public class Person {
 
-    @PrimaryKey
+    @PrimaryKey(name = "k_id")
     long id;
 
-    @Column
+    @Column(name = "c_name")
     String name;
 
-    @Column
+    @Column(name = "c_age")
     int age;
 
     public Person() { }

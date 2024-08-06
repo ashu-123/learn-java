@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public abstract class AbstractEntityManager<T> implements EntityManager<T> {
 
-    private AtomicLong idGenerator = new AtomicLong(9);
+    private AtomicLong idGenerator = new AtomicLong(1);
 
     @Override
     public void persist(T t) throws SQLException, IllegalAccessException {
