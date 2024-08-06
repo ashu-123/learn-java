@@ -1,7 +1,9 @@
 package reflection.metamodel;
 
+import reflection.metamodel.beanmanager.BeanManager;
 import reflection.metamodel.model.Person;
 import reflection.metamodel.orm.EntityManager;
+import reflection.metamodel.orm.ManagedEntityManager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
@@ -10,7 +12,9 @@ public class ReadingObjects {
 
     public static void main(String[] args) throws SQLException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 
-        EntityManager<Person> entityManager = EntityManager.of(Person.class);
+        BeanManager beanManager = BeanManager.getInstance();
+
+        EntityManager<Person> entityManager = beanManager.getInstance(ManagedEntityManager.class);
 
         Person ashu = entityManager.find(Person.class, 5L);
         Person ashutosh = entityManager.find(Person.class, 2L);

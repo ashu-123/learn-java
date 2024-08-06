@@ -1,14 +1,19 @@
 package reflection.metamodel;
 
+import reflection.metamodel.beanmanager.BeanManager;
 import reflection.metamodel.model.Person;
 import reflection.metamodel.orm.EntityManager;
+import reflection.metamodel.orm.ManagedEntityManager;
 
 import java.sql.SQLException;
 
 public class WritingObjects {
 
     public static void main(String[] args) throws SQLException, IllegalAccessException {
-        EntityManager<Person> entityManager = EntityManager.of(Person.class);
+
+        BeanManager beanManager = BeanManager.getInstance();
+
+        EntityManager<Person> entityManager = beanManager.getInstance(ManagedEntityManager.class);
 
         Person ashu = new Person("Ashu", 27);
         Person ashutosh = new Person("Ashutosh", 27);

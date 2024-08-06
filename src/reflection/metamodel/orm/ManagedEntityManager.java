@@ -1,5 +1,6 @@
 package reflection.metamodel.orm;
 
+import reflection.metamodel.annotation.Inject;
 import reflection.metamodel.util.ColumnField;
 import reflection.metamodel.util.MetaModel;
 
@@ -8,7 +9,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.concurrent.atomic.AtomicLong;
 
-public abstract class AbstractEntityManager<T> implements EntityManager<T> {
+public class ManagedEntityManager<T> implements EntityManager<T> {
+
+    @Inject
+    private Connection connection;
 
     private AtomicLong idGenerator = new AtomicLong(1);
 
@@ -31,12 +35,9 @@ public abstract class AbstractEntityManager<T> implements EntityManager<T> {
     }
 
     private PreparedStatementWrapper prepareStatementWith(String sql) throws SQLException {
-        Connection connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         return new PreparedStatementWrapper(preparedStatement);
     }
-
-    public abstract Connection getConnection() throws SQLException;
 
     private T buildInstanceFrom(Class<?> clzz, ResultSet resultSet) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, SQLException {
 
