@@ -8,9 +8,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class EntityManagerImpl<T> implements EntityManager<T>{
+public abstract class AbstractEntityManager<T> implements EntityManager<T>{
 
-    private AtomicLong idGenerator = new AtomicLong(1);
+    private AtomicLong idGenerator = new AtomicLong(9);
 
     @Override
     public void persist(T t) throws SQLException, IllegalAccessException {
@@ -30,14 +30,13 @@ public class EntityManagerImpl<T> implements EntityManager<T>{
     }
 
     private PreparedStatementWrapper prepareStatementWith(String sql) throws SQLException {
-        Connection connection = DriverManager.getConnection(
-                "jdbc:h2:~/Downloads\\ashu\\ashu\\learning\\learn-java-18\\db-files\\db-learning",
-                "sa",
-                "");
+        Connection connection = getConnection();
 
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         return new PreparedStatementWrapper(preparedStatement);
     }
+
+    public abstract Connection getConnection() throws SQLException;
 
     private T buildInstanceFrom(Class<?> clzz, ResultSet resultSet) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, SQLException {
 
