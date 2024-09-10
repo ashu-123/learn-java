@@ -9,7 +9,6 @@ import static java.util.logging.Level.INFO;
 public class DemoLogging {
 
     private static final Logger LOGGER = Logger.getLogger(DemoLogging.class.getName());
-
 //    static {
 //        FileHandler fileHandler = null;
 //        try {
