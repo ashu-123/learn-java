@@ -4,6 +4,7 @@ import model.Animal;
 import model.Dog;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ArrayListCollection {
 
@@ -18,6 +19,15 @@ public class ArrayListCollection {
 
         printList(animals);
         printList(dogs);
+
+        Animal shanky = new Animal();
+        shanky.setName("shanky");
+        var animals2 = List.of(shanky);
+
+        animals2.stream().map(Animal::getName).forEach(System.out::println);
+        shanky.setName("sneaky");
+        animals2.stream().map(Animal::getName).forEach(System.out::println);
+
     }
 
     private static void printList(ArrayList<? extends Animal> animals) {
