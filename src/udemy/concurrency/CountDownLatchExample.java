@@ -5,12 +5,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
-class Worker implements Runnable {
+class CountDownLatchWorker implements Runnable {
 
     private final int id;
     private final CountDownLatch countDownLatch;
 
-    Worker(int id, CountDownLatch countDownLatch) {
+    CountDownLatchWorker(int id, CountDownLatch countDownLatch) {
         this.id = id;
         this.countDownLatch = countDownLatch;
     }
@@ -36,7 +36,7 @@ public class CountDownLatchExample {
 
         try (ExecutorService executorService = Executors.newSingleThreadExecutor()) {
             IntStream.range(0, numOfTasks)
-                    .forEach(id -> executorService.execute(new Worker(id, countDownLatch)));
+                    .forEach(id -> executorService.execute(new CountDownLatchWorker(id, countDownLatch)));
             countDownLatch.await();
             System.out.println("All tasks completed..");
             executorService.shutdownNow();
