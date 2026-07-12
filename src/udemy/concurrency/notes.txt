@@ -1,0 +1,8 @@
+✔️ CountDown Latch
+✔️ CyclicBarrier
+✔️ ArrayBlocking Queue
+✔️ LinkedBlocking Queue
+- Delay Queue
+- PriorityBlocking Queue
+- Exchanger
+- CopyOnWriteArrays
