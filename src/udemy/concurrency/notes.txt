@@ -4,5 +4,5 @@
 ✔️ LinkedBlocking Queue
 ✔️ Delay Queue
 ✔️ PriorityBlocking Queue
-- Exchanger
-- CopyOnWriteArrays
+✔️ Exchanger
+✔️ CopyOnWriteArrays
