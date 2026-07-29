@@ -2,7 +2,7 @@
 ✔️ CyclicBarrier
 ✔️ ArrayBlocking Queue
 ✔️ LinkedBlocking Queue
-- Delay Queue
-- PriorityBlocking Queue
+✔️ Delay Queue
+✔️ PriorityBlocking Queue
 - Exchanger
 - CopyOnWriteArrays
